@@ -21,8 +21,8 @@ export class QuickView extends BaseAdaptiveCardView<
 > {
   public get data(): IQuickViewData {
     return {
-      subTitle: strings.SubTitle,
-      title: strings.Title,
+      subTitle: '',
+    title: strings.Title
     };
   }
 
@@ -32,18 +32,6 @@ export class QuickView extends BaseAdaptiveCardView<
 
 
   public onAction(action: IActionArguments): void {    
-    if (action.type === 'Submit') {      
-      const { id, message } = action.data;
-      switch (id) {
-        case 'button1': console.log("apretaste el boton 1");
-        
-        case 'button2': console.log("apretaste el boton 2");
-        
-          this.setState({
-            subTitle: message
-          });
-          break;
-      }
-    }
+
   }
 }

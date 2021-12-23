@@ -3,15 +3,31 @@ import { BaseAdaptiveCardExtension } from '@microsoft/sp-adaptive-card-extension
 import { CardView } from './cardView/CardView';
 import { QuickView } from './quickView/QuickView';
 import { HelloWorldPropertyPane } from './HelloWorldPropertyPane';
+import { SPHttpClient } from '@microsoft/sp-http';
+
+
+import { MediumCardView } from './cardView/MediumCardView';
+
+
+const MEDIUM_VIEW_REGISTRY_ID: string = 'HelloWorld_MEDIUM_VIEW';
+
 
 export interface IHelloWorldAdaptiveCardExtensionProps {
   title: string;
   description: string;
   iconProperty: string;
+  listId: string;
 }
 
 export interface IHelloWorldAdaptiveCardExtensionState {
   subTitle: string;
+  currentIndex: number;
+  items: IListItem[];
+}
+
+export interface IListItem {
+  title: string;
+  description: string;
 }
 
 const CARD_VIEW_REGISTRY_ID: string = 'HelloWorld_CARD_VIEW';
@@ -25,13 +41,15 @@ export default class HelloWorldAdaptiveCardExtension extends BaseAdaptiveCardExt
 
   public onInit(): Promise<void> {
     this.state = {
-      subTitle: "no button clicked"
+      subTitle: "no button clicked",
+      currentIndex: 0,
+      items: []
     };
 
     this.cardNavigator.register(CARD_VIEW_REGISTRY_ID, () => new CardView());
-    this.quickViewNavigator.register(QUICK_VIEW_REGISTRY_ID, () => new QuickView());
+    this.cardNavigator.register(MEDIUM_VIEW_REGISTRY_ID, () => new MediumCardView());
 
-    return Promise.resolve();
+    return this._fetchData();
   }
 
   public get title(): string {
@@ -55,21 +73,44 @@ export default class HelloWorldAdaptiveCardExtension extends BaseAdaptiveCardExt
   }
 
   protected renderCard(): string | undefined {
-    return CARD_VIEW_REGISTRY_ID;
+    return this.cardSize === 'Medium' ? MEDIUM_VIEW_REGISTRY_ID : CARD_VIEW_REGISTRY_ID;
   }
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return this._deferredPropertyPane!.getPropertyPaneConfiguration();
   }
-  
+
   protected onPropertyPaneFieldChanged(propertyPath: string, oldValue: any, newValue: any): void {
-    if (propertyPath === 'description') {
+    /*if (propertyPath === 'description') {
       this.setState({
         subTitle: newValue
       });
+    }*/
+    if (propertyPath === 'listId' && newValue !== oldValue) {
+      if (newValue) {
+        this._fetchData();
+      } else {
+        this.setState({ items: [] });
+      }
     }
   }
 
+  private _fetchData(): Promise<void> {
+    if (this.properties.listId) {
+      return this.context.spHttpClient.get(
+        `${this.context.pageContext.web.absoluteUrl}` +
+          `/_api/web/lists/GetById(id='${this.properties.listId}')/items`,
+        SPHttpClient.configurations.v1
+      )
+        .then((response) => response.json())
+        .then((jsonResponse) => jsonResponse.value.map(
+          (item) => { return { title: item.Title, description: item.Description }; })
+          )
+        .then((items) => this.setState({ items }));
+    }
+  
+    return Promise.resolve();
+  }
 
 
 }

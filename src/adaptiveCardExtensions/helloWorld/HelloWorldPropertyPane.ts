@@ -20,6 +20,9 @@ export class HelloWorldPropertyPane {
                 PropertyPaneTextField('description', {
                   label: strings.DescriptionFieldLabel,
                   multiline: true
+                }),
+                PropertyPaneTextField('listId', {
+                  label: 'List ID'
                 })
               ]
             }

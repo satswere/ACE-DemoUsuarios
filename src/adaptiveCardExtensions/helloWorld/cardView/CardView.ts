@@ -33,9 +33,10 @@ export class CardView extends BasePrimaryTextCardView<IHelloWorldAdaptiveCardExt
   }
   
   public get data(): IPrimaryTextCardParameters {
+    const { title, description } = this.state.items[this.state.currentIndex];
     return {
-      primaryText: strings.PrimaryText,
-      description: this.properties.description
+      description,
+      primaryText: title
     };
   }
 
