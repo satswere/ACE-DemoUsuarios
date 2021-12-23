@@ -11,7 +11,7 @@ export interface IHelloWorldAdaptiveCardExtensionProps {
 }
 
 export interface IHelloWorldAdaptiveCardExtensionState {
-  description: string;
+  subTitle: string;
 }
 
 const CARD_VIEW_REGISTRY_ID: string = 'HelloWorld_CARD_VIEW';
@@ -25,7 +25,7 @@ export default class HelloWorldAdaptiveCardExtension extends BaseAdaptiveCardExt
 
   public onInit(): Promise<void> {
     this.state = {
-      description: this.properties.description
+      subTitle: "no button clicked"
     };
 
     this.cardNavigator.register(CARD_VIEW_REGISTRY_ID, () => new CardView());

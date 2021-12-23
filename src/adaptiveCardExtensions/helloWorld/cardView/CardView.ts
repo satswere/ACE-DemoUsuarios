@@ -34,16 +34,15 @@ export class CardView extends BasePrimaryTextCardView<IHelloWorldAdaptiveCardExt
   
   public get data(): IPrimaryTextCardParameters {
     return {
-      primaryText: strings.PrimaryText,
-      description: this.properties.description
+      primaryText: strings.PrimaryText
     };
   }
 
   public get onCardSelection(): IQuickViewCardAction | IExternalLinkCardAction | undefined {
     return {
-      type: 'ExternalLink',
+      type: 'QuickView',
       parameters: {
-        target: 'https://www.bing.com'
+         view: QUICK_VIEW_REGISTRY_ID
       }
     };
   }

@@ -1,11 +1,16 @@
-import { ISPFxAdaptiveCard, BaseAdaptiveCardView } from '@microsoft/sp-adaptive-card-extension-base';
-import * as strings from 'HelloWorldAdaptiveCardExtensionStrings';
-import { IHelloWorldAdaptiveCardExtensionProps, IHelloWorldAdaptiveCardExtensionState } from '../HelloWorldAdaptiveCardExtension';
+import {
+  ISPFxAdaptiveCard,
+  BaseAdaptiveCardView,
+} from "@microsoft/sp-adaptive-card-extension-base";
+import * as strings from "HelloWorldAdaptiveCardExtensionStrings";
+import {
+  IHelloWorldAdaptiveCardExtensionProps,
+  IHelloWorldAdaptiveCardExtensionState,
+} from "../HelloWorldAdaptiveCardExtension";
 
 export interface IQuickViewData {
   subTitle: string;
   title: string;
-  description: string;
 }
 
 export class QuickView extends BaseAdaptiveCardView<
@@ -17,11 +22,11 @@ export class QuickView extends BaseAdaptiveCardView<
     return {
       subTitle: strings.SubTitle,
       title: strings.Title,
-      description: this.properties.description
+
     };
   }
 
   public get template(): ISPFxAdaptiveCard {
-    return require('./template/QuickViewTemplate.json');
+    return require("./template/QuickViewTemplate.json");
   }
 }

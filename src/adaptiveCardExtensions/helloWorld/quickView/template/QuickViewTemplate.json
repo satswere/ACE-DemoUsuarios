@@ -9,25 +9,31 @@
       "text": "${title}"
     },
     {
-      "type": "ColumnSet",
-      "columns": [
-        {
-          "type": "Column",
-          "items": [
-            {
-              "type": "TextBlock",
-              "weight": "Bolder",
-              "text": "${subTitle}",
-              "wrap": true
-            }
-          ]
-        }
-      ]
+      "type": "TextBlock",
+      "text": "${subTitle}",
+      "wrap": true
     },
     {
-      "type": "TextBlock",
-      "text": "${description}",
-      "wrap": true
+      "type": "ActionSet",
+      "actions": [
+        {
+          "type": "Action.Submit",
+          "title": "Button One",
+          "style": "positive",
+          "data": {
+            "id": "button1",
+            "message": "Clicked Button One"
+          }
+        },
+        {
+          "type": "Action.Submit",
+          "title": "Button Two",
+          "data": {
+            "id": "button2",
+            "message": "Clicked Button Two"
+          }
+        }
+      ]
     }
   ]
 }
