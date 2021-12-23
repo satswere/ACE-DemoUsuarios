@@ -19,10 +19,19 @@ export class CardView extends BasePrimaryTextCardView<IHelloWorldAdaptiveCardExt
             view: QUICK_VIEW_REGISTRY_ID
           }
         }
+      },
+      {
+        title: 'Bing',
+        action: {
+          type: 'ExternalLink',
+          parameters: {
+            target: 'https://www.bing.com'
+          }
+        }
       }
     ];
   }
-
+  
   public get data(): IPrimaryTextCardParameters {
     return {
       primaryText: strings.PrimaryText,
