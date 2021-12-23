@@ -8,28 +8,41 @@ import {
 import * as strings from 'HelloWorldAdaptiveCardExtensionStrings';
 import { IHelloWorldAdaptiveCardExtensionProps, IHelloWorldAdaptiveCardExtensionState, QUICK_VIEW_REGISTRY_ID } from '../HelloWorldAdaptiveCardExtension';
 
+import { IActionArguments } from '@microsoft/sp-adaptive-card-extension-base';
+
 export class CardView extends BasePrimaryTextCardView<IHelloWorldAdaptiveCardExtensionProps, IHelloWorldAdaptiveCardExtensionState> {
-  public get cardButtons(): [ICardButton] | [ICardButton, ICardButton] | undefined {
-    return [
-      {
-        title: strings.QuickViewButton,
+  public get cardButtons(): [ICardButton] | [ICardButton, ICardButton] {
+    const buttons: ICardButton[] = [];
+  
+    // Hide the Previous button if at Step 1
+    if (this.state.currentIndex > 0) {
+      buttons.push({
+        title: 'Previous',
         action: {
-          type: 'QuickView',
+          type: 'Submit',
           parameters: {
-            view: QUICK_VIEW_REGISTRY_ID
+            id: 'previous',
+            op: -1 // Decrement the index
           }
         }
-      },
-      {
-        title: 'Bing',
+      });
+    }
+  
+    // Hide the Next button if at the end
+    if (this.state.currentIndex < this.state.items.length - 1) {
+      buttons.push({
+        title: 'Next',
         action: {
-          type: 'ExternalLink',
+          type: 'Submit',
           parameters: {
-            target: 'https://www.bing.com'
+            id: 'next',
+            op: 1 // Increment the index
           }
         }
-      }
-    ];
+      });
+    }
+  
+    return buttons as [ICardButton] | [ICardButton, ICardButton];
   }
   
   public get data(): IPrimaryTextCardParameters {
@@ -47,5 +60,16 @@ export class CardView extends BasePrimaryTextCardView<IHelloWorldAdaptiveCardExt
          view: QUICK_VIEW_REGISTRY_ID
       }
     };
+  }
+  public onAction(action: IActionArguments): void {
+    if (action.type === 'Submit') {
+      const { id, op } = action.data;
+      switch (id) {
+        case 'previous':
+        case 'next':
+        this.setState({ currentIndex: this.state.currentIndex + op });
+        break;
+      }
+    }
   }
 }
