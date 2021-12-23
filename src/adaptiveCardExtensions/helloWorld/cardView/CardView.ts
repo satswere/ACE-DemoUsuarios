@@ -34,7 +34,8 @@ export class CardView extends BasePrimaryTextCardView<IHelloWorldAdaptiveCardExt
   
   public get data(): IPrimaryTextCardParameters {
     return {
-      primaryText: strings.PrimaryText
+      primaryText: strings.PrimaryText,
+      description: this.properties.description
     };
   }
 

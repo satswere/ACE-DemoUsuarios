@@ -61,4 +61,15 @@ export default class HelloWorldAdaptiveCardExtension extends BaseAdaptiveCardExt
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return this._deferredPropertyPane!.getPropertyPaneConfiguration();
   }
+  
+  protected onPropertyPaneFieldChanged(propertyPath: string, oldValue: any, newValue: any): void {
+    if (propertyPath === 'description') {
+      this.setState({
+        subTitle: newValue
+      });
+    }
+  }
+
+
+
 }
