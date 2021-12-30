@@ -13,7 +13,7 @@ import {
   // Extend from BaseBasicCardView
   export class MediumCardView extends BaseBasicCardView<IHelloWorldAdaptiveCardExtensionProps, IHelloWorldAdaptiveCardExtensionState> {
     // Use the Card button to open the Quick View
-    public get cardButtons(): [ICardButton] {
+    public get cardButtons(): [ICardButton] {      
       return [
         {
           title: 'View All',
@@ -29,8 +29,10 @@ import {
   
     // Display the total number of steps
     public get data(): IBasicCardParameters {
+      /*console.log("card mediana");
+      console.log(this.state.items);*/
       return {
-        primaryText: `${this.state.items.length} Steps`
+        primaryText: `${this.state.items.length} Usuarios`
       };
     }
   }

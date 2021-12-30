@@ -9,6 +9,7 @@
     "test": "gulp test"
   },
   "dependencies": {
+    "@microsoft/microsoft-graph-types": "^2.11.0",
     "@microsoft/sp-adaptive-card-extension-base": "1.13.1",
     "@microsoft/sp-core-library": "1.13.1",
     "@microsoft/sp-http": "1.13.1",

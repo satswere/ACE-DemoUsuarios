@@ -1,39 +1,59 @@
 {
-  "schema": "http://adaptivecards.io/schemas/adaptive-card.json",
   "type": "AdaptiveCard",
-  "version": "1.2",
   "body": [
-    {
-      "type": "TextBlock",
-      "weight": "Bolder",
-      "text": "${title}"
-    },
-    {
-      "type": "TextBlock",
-      "text": "${subTitle}",
-      "wrap": true
-    },
-    {
-      "type": "ActionSet",
-      "actions": [
-        {
-          "type": "Action.Submit",
-          "title": "Button One",
-          "style": "positive",
-          "data": {
-            "id": "button1",
-            "message": "Clicked Button One"
-          }
-        },
-        {
-          "type": "Action.Submit",
-          "title": "Button Two",
-          "data": {
-            "id": "button2",
-            "message": "Clicked Button Two"
-          }
-        }
-      ]
-    }
-  ]
+      {
+          "type": "TextBlock",
+          "size": "Medium",
+          "weight": "Bolder",
+          "text": "${nombre}",
+          "wrap": true,
+          "style": "heading"
+      },
+      {
+          "type": "ColumnSet",
+          "columns": [
+              {
+                  "type": "Column",
+                  "items": [
+                      {
+                          "type": "Image",
+                          "style": "Person",
+                          "url": "${profileImage}",
+                          "size": "Small"
+                      }
+                  ],
+                  "width": "auto"
+              },
+              {
+                  "type": "Column",
+                  "items": [
+                      {
+                          "type": "TextBlock",
+                          "weight": "Bolder",
+                          "text": "${NombrePila}",
+                          "wrap": true
+                      }
+                  ],
+                  "width": "stretch"
+              }
+          ]
+      },
+      {
+          "type": "TextBlock",
+          "text": "Profesión: ' ${puestoTrabajo} '",
+          "wrap": true
+      },
+      {
+          "type": "TextBlock",
+          "text": "Correo electrónico: ' ${correo} '",
+          "wrap": true
+      },
+      {
+          "type": "TextBlock",
+          "text": "Número de teléfono: ' ${telefono} '",
+          "wrap": true
+      }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.2"
 }

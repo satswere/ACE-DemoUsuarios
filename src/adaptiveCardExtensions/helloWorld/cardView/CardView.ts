@@ -13,9 +13,9 @@ import { IActionArguments } from '@microsoft/sp-adaptive-card-extension-base';
 export class CardView extends BasePrimaryTextCardView<IHelloWorldAdaptiveCardExtensionProps, IHelloWorldAdaptiveCardExtensionState> {
   public get cardButtons(): [ICardButton] | [ICardButton, ICardButton] {
     const buttons: ICardButton[] = [];
-  
+
     // Hide the Previous button if at Step 1
-    if (this.state.currentIndex > 0) {
+   /* if (this.state.currentIndex > 0) {
       buttons.push({
         title: 'Previous',
         action: {
@@ -26,8 +26,18 @@ export class CardView extends BasePrimaryTextCardView<IHelloWorldAdaptiveCardExt
           }
         }
       });
-    }
-  
+    }*/  ///botoon para regresar al anterior elemento
+
+    buttons.push({
+      title: strings.QuickViewButton,
+      action: {
+        type: 'QuickView',
+        parameters: {
+          view: QUICK_VIEW_REGISTRY_ID
+        }
+      }
+    });
+
     // Hide the Next button if at the end
     if (this.state.currentIndex < this.state.items.length - 1) {
       buttons.push({
@@ -46,11 +56,13 @@ export class CardView extends BasePrimaryTextCardView<IHelloWorldAdaptiveCardExt
   }
   
   public get data(): IPrimaryTextCardParameters {
-    const { title, description } = this.state.items[this.state.currentIndex];
-    return {
-      description,
-      primaryText: title
-    };
+   console.log("card normal");
+    console.log(this.state.items);
+      const { correo, nombre } = this.state.items[this.state.currentIndex];
+      return {
+        description : correo,
+        primaryText: nombre
+      };
   }
 
   public get onCardSelection(): IQuickViewCardAction | IExternalLinkCardAction | undefined {

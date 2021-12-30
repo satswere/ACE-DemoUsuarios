@@ -23,6 +23,9 @@ export class HelloWorldPropertyPane {
                 }),
                 PropertyPaneTextField('listId', {
                   label: 'List ID'
+                }),
+                PropertyPaneTextField('cantidad', {
+                  label: 'cantidad de usuarios'
                 })
               ]
             }
