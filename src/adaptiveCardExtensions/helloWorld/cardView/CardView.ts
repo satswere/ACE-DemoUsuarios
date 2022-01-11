@@ -52,7 +52,7 @@ export class CardView extends BasePrimaryTextCardView<
   }
 
   public get data(): IPrimaryTextCardParameters {
-    console.log("card normal");
+    //console.log("card normal");
     console.log(this.state.items);
     const { correo, nombre } = this.state.items[this.state.currentIndex];
     return {

@@ -23,18 +23,6 @@
                       }
                   ],
                   "width": "auto"
-              },
-              {
-                  "type": "Column",
-                  "items": [
-                      {
-                          "type": "TextBlock",
-                          "weight": "Bolder",
-                          "text": "${NombrePila}",
-                          "wrap": true
-                      }
-                  ],
-                  "width": "stretch"
               }
           ]
       },

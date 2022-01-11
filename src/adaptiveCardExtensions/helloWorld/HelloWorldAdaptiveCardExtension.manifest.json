@@ -13,15 +13,14 @@
   "preconfiguredEntries": [{
     "groupId": "bd067b1e-3ad5-4d5d-a5fe-505f07d7f59c",
     "group": { "default": "Dashboard" },
-    "title": { "default": "HelloWorld" },
+    "title": { "default": "ACEs" },
     "description": { "default": "HelloWorld description" },
     "officeFabricIconFontName": "SharePointLogo",
     "properties": {
-      "title": "HelloWorld",
+      "title": "ACEs",
       "description": "HelloWorld description",
       "iconProperty": "",
-      "listId" : "62bc5847-3df3-44f8-83d0-63aba5c1c4f8",
-      "cantidad": ""
+      "cantidad": "5"
     }
   }]
 }

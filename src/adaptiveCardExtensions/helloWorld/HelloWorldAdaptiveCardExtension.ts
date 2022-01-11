@@ -11,13 +11,14 @@ import { MSGraphClient } from "@microsoft/sp-http";
 import * as MicrosoftGraph from "@microsoft/microsoft-graph-types";
 
 const MEDIUM_VIEW_REGISTRY_ID: string = "HelloWorld_MEDIUM_VIEW";
+const CARD_VIEW_REGISTRY_ID: string = "HelloWorld_CARD_VIEW";
+export const QUICK_VIEW_REGISTRY_ID: string = "HelloWorld_QUICK_VIEW";
 
 //elementos en la comnfiguracion
 export interface IHelloWorldAdaptiveCardExtensionProps {
   title: string;
   description: string;
   iconProperty: string;
-  listId: string;
   cantidad: number;
 }
 //personalizados
@@ -35,8 +36,7 @@ export interface IListItem {
   nombrePila: string;
 }
 
-const CARD_VIEW_REGISTRY_ID: string = "HelloWorld_CARD_VIEW";
-export const QUICK_VIEW_REGISTRY_ID: string = "HelloWorld_QUICK_VIEW";
+
 //INICIAL
 export default class HelloWorldAdaptiveCardExtension extends BaseAdaptiveCardExtension<
   IHelloWorldAdaptiveCardExtensionProps,
@@ -76,7 +76,6 @@ export default class HelloWorldAdaptiveCardExtension extends BaseAdaptiveCardExt
 
   protected loadPropertyPaneResources(): Promise<void> {
     return import(
-      /* webpackChunkName: 'HelloWorld-property-pane'*/
       "./HelloWorldPropertyPane"
     ).then((component) => {
       this._deferredPropertyPane = new component.HelloWorldPropertyPane();
@@ -101,25 +100,26 @@ export default class HelloWorldAdaptiveCardExtension extends BaseAdaptiveCardExt
     if (propertyPath === "cantidad") {
       this._fetchData();
     }
-
+/*
     if (propertyPath === "listId" && newValue !== oldValue) {
       if (newValue) {
         this._fetchData();
       } else {
         this.setState({ items: [] });
       }
-    }
+    }*/
   }
 
   private _fetchData(): Promise<void> {
-    if (this.properties.listId) {
+
       return this.context.msGraphClientFactory
         .getClient()
         .then((client: MSGraphClient): void => {
           client
             .api("/users")
             .top(this.properties.cantidad)
-            .orderby("displayName desc")
+           // .orderby("displayName desc")
+           //.filter("displayname eq null")
             .select("displayName,jobTitle,mail,businessPhones")
             .get()
             .then((res) =>
@@ -135,7 +135,5 @@ export default class HelloWorldAdaptiveCardExtension extends BaseAdaptiveCardExt
             )
             .then((items) => this.setState({ items }));
         });
-    }
-    return Promise.resolve();
   }
 }

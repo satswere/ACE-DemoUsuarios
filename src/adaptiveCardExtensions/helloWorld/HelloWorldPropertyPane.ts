@@ -21,9 +21,6 @@ export class HelloWorldPropertyPane {
                   label: strings.DescriptionFieldLabel,
                   multiline: true
                 }),
-                PropertyPaneTextField('listId', {
-                  label: 'List ID'
-                }),
                 PropertyPaneTextField('cantidad', {
                   label: 'cantidad de usuarios'
                 })
